@@ -1,14 +1,16 @@
 package com.junit.learn;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
+@TestMethodOrder(MethodOrderer.Random.class)
+//@TestMethodOrder(MethodOrderer.MethodName.class)
 @DisplayName("MathOperationTest unit test")
 class MathOperationTest {
 
@@ -50,6 +52,21 @@ class MathOperationTest {
     @MethodSource
     void should_test_division_successfully(final double firstNumber, final double secondNumber, final double expectedNumber){
         Assertions.assertEquals(mathOperationTest.divide(firstNumber, secondNumber), expectedNumber, 2D);
+    }
+
+    @DisplayName("Test division operation by zero")
+    @ParameterizedTest
+    @ValueSource(doubles = 0)
+    void should_test_division_successfully(final double divideBy){
+        final double originalValue = 100;
+        Assertions.assertThrows(ArithmeticException.class, () -> mathOperationTest.divide(originalValue, divideBy));
+    }
+
+    @DisplayName("Test division operation by zero using csvSource parameter")
+    @ParameterizedTest
+    @CsvSource({"100, 0"})
+    void should_test_division_successfully(final double originalValue, final double divideBy) {
+        Assertions.assertThrows(ArithmeticException.class, () -> mathOperationTest.divide(originalValue, divideBy));
     }
 
    static Stream<Arguments> should_test_subtract_operation(){
