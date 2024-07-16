@@ -11,6 +11,7 @@
     <modules>
         <module>MathOperation</module>
         <module>TestDrivenDevelopment</module>
+        <module>Mockito</module>
     </modules>
 
     <properties>

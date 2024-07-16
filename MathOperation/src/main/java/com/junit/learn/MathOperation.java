@@ -16,7 +16,7 @@ public class MathOperation {
 
     public double divide(final double firstNumber, final double secondNumber) throws ArithmeticException {
         if(secondNumber == 0)
-            throw new ArithmeticException("It's impossible divide a number by zero");
+            throw new ArithmeticException("Impossible to divide by zero!");
         return firstNumber / secondNumber;
     }
 
